@@ -4,6 +4,7 @@ import edu.java.scrapper.dto.AddLinkRequest;
 import edu.java.scrapper.dto.LinkResponse;
 import edu.java.scrapper.dto.ListLinksResponse;
 import edu.java.scrapper.dto.RemoveLinkRequest;
+import edu.java.scrapper.service.ScrapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import edu.java.scrapper.service.ScrapperService;
 
 @RestController
 public class ScrapperController {
@@ -29,7 +29,7 @@ public class ScrapperController {
     }
 
     @PostMapping("/links")
-    public LinkResponse addLink(@RequestHeader("Tg-Chat-Id") long chatId, @RequestBody AddLinkRequest request){
+    public LinkResponse addLink(@RequestHeader("Tg-Chat-Id") long chatId, @RequestBody AddLinkRequest request) {
         LinkResponse link = new LinkResponse(chatId, request.link());
         return service.addLink(chatId, link);
     }
