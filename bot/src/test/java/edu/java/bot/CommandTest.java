@@ -16,12 +16,11 @@ import edu.java.bot.commands.UntrackCommand;
 import edu.java.bot.configuration.ApplicationConfig;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-public class BotTest {
+public class CommandTest {
     private List<Command> commandsWithoutHelp = List.of(
         new StartCommand(),
         new TrackCommand(),

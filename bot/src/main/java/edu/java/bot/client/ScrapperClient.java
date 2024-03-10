@@ -1,20 +1,19 @@
 package edu.java.bot.client;
 
 import edu.java.bot.dto.AddLinkRequest;
-import edu.java.bot.dto.ApiErrorException;
-import edu.java.bot.dto.ApiErrorResponse;
 import edu.java.bot.dto.LinkResponse;
 import edu.java.bot.dto.ListLinksResponse;
 import edu.java.bot.dto.RemoveLinkRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 public class ScrapperClient {
     private final WebClient webClient;
-    private final String scrapperBaseUrl = "localhost";
+
+    @Value("api-scrapper-base-url")
+    private String scrapperBaseUrl;
     private final String links = "/links";
     private final String tgChat = "tg-chat/{id}";
     private final String tgChatId = "Tg-Chat-Id";
@@ -32,12 +31,6 @@ public class ScrapperClient {
             .post()
             .uri(uriBuilder -> uriBuilder.path(tgChat).build(id))
             .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                response -> response
-                    .bodyToMono(ApiErrorResponse.class)
-                    .flatMap(errorResponse -> Mono.error(new ApiErrorException(errorResponse)))
-            )
             .bodyToMono(String.class)
             .blockOptional();
     }
@@ -47,12 +40,6 @@ public class ScrapperClient {
             .delete()
             .uri(uriBuilder -> uriBuilder.path(tgChat).build(id))
             .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                response -> response
-                    .bodyToMono(ApiErrorResponse.class)
-                    .flatMap(errorResponse -> Mono.error(new ApiErrorException(errorResponse)))
-            )
             .bodyToMono(String.class)
             .blockOptional();
     }
@@ -63,12 +50,6 @@ public class ScrapperClient {
             .uri(links)
             .header(tgChatId, String.valueOf(id))
             .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                response -> response
-                    .bodyToMono(ApiErrorResponse.class)
-                    .flatMap(errorResponse -> Mono.error(new ApiErrorException(errorResponse)))
-            )
             .bodyToMono(ListLinksResponse.class)
             .block();
     }
@@ -80,12 +61,6 @@ public class ScrapperClient {
             .header(tgChatId, String.valueOf(id))
             .body(BodyInserters.fromValue(request))
             .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                response -> response
-                    .bodyToMono(ApiErrorResponse.class)
-                    .flatMap(errorResponse -> Mono.error(new ApiErrorException(errorResponse)))
-            )
             .bodyToMono(LinkResponse.class)
             .block();
     }
@@ -96,12 +71,6 @@ public class ScrapperClient {
             .header(tgChatId, String.valueOf(id))
             .body(BodyInserters.fromValue(request))
             .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                response -> response
-                    .bodyToMono(ApiErrorResponse.class)
-                    .flatMap(errorResponse -> Mono.error(new ApiErrorException(errorResponse)))
-            )
             .bodyToMono(LinkResponse.class)
             .block();
     }
