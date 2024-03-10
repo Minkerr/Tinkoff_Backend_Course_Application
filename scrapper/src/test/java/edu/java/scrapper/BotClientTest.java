@@ -4,14 +4,13 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import edu.java.scrapper.client.BotClient;
 import edu.java.scrapper.dto.LinkUpdateRequest;
+import java.util.List;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import java.util.List;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
@@ -37,7 +36,7 @@ public class BotClientTest {
     }
 
     @Test
-    public void scrapperClient_shouldProcessRequests() {
+    public void botClient_shouldProcessRequests() {
         //arrange
         LinkUpdateRequest request = new LinkUpdateRequest(
             1L,

@@ -26,22 +26,22 @@ public class ScrapperClient {
         this.webClient = WebClient.builder().baseUrl(url).build();
     }
 
-    public void registerChat(Long id) {
-        webClient
+    public String registerChat(Long id) {
+        return webClient
             .post()
             .uri(uriBuilder -> uriBuilder.path(tgChat).build(id))
             .retrieve()
             .bodyToMono(String.class)
-            .blockOptional();
+            .block();
     }
 
-    public void deleteChat(Long id) {
-        webClient
+    public String deleteChat(Long id) {
+        return webClient
             .delete()
             .uri(uriBuilder -> uriBuilder.path(tgChat).build(id))
             .retrieve()
             .bodyToMono(String.class)
-            .blockOptional();
+            .block();
     }
 
     public ListLinksResponse getLinks(Long id) {
