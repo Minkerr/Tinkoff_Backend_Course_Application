@@ -1,0 +1,6 @@
+CREATE TABLE chat_links
+(
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
+    id_chat BIGINT NOT NULL REFERENCES chats (id),
+    id_link BIGINT NOT NULL REFERENCES links (id)
+);
