@@ -7,6 +7,11 @@ app:
 spring:
   application:
     name: scrapper
+  datasource:
+    url: jdbc:postgresql://localhost:5432/scrapper
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
 
 server:
   port: 8080
@@ -19,3 +24,11 @@ api:
     base-url: https://api.github.com
   stackoverflow:
     base-url: https://api.stackexchange.com/
+  bot:
+    base-url: http://localhost:8080
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+  bot:
+    base-url: http://localhost:8080
