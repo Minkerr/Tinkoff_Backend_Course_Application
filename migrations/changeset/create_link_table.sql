@@ -1,0 +1,8 @@
+CREATE TABLE links
+(
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
+    url TEXT NOT NULL,
+
+    PRIMARY KEY(id),
+    UNIQUE(url)
+);
