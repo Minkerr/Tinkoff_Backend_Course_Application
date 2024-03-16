@@ -18,7 +18,7 @@ public class MigrationTest extends IntegrationTest {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM links WHERE url = 'link'");
         //act
         String act = null;
-        while (resultSet.next()){
+        while (resultSet.next()) {
             act = resultSet.getString("url");
         }
         //assert
