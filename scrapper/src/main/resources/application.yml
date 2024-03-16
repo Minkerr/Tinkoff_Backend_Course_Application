@@ -25,3 +25,5 @@ api:
 springdoc:
   swagger-ui:
     path: /swagger-ui
+  bot:
+    base-url: http://localhost:8080
