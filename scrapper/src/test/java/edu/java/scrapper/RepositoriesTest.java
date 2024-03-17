@@ -1,6 +1,7 @@
 package edu.java.scrapper;
 
 import edu.java.scrapper.config.ConfigForRepository;
+import edu.java.scrapper.domain.dao.Link;
 import edu.java.scrapper.domain.repository.JdbcChatRepository;
 import edu.java.scrapper.domain.repository.JdbcLinkRepository;
 import org.junit.jupiter.api.Test;
@@ -10,9 +11,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import java.time.OffsetDateTime;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@SpringBootTest(classes = {ConfigForRepository.class, JdbcChatRepository.class, JdbcLinkRepository.class})
+@SpringBootTest
 @Testcontainers
 public class RepositoriesTest {
     @Autowired

@@ -3,6 +3,7 @@ package edu.java.scrapper.domain.repository;
 import edu.java.scrapper.domain.dao.Chat;
 import edu.java.scrapper.domain.dao.Link;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,27 @@ public class JdbcLinkRepository {
         return findByUrl(url).get();
     }
 
+    public Link addLink(long chatApiId, Link link) {
+        String sql = "INSERT INTO links (url, last_update) values (?, ?)";
+        jdbcTemplate.update(sql, link.getUrl(), link.getLastUpdated());
+        String sql2 = "INSERT INTO chat_links (id_chat, id_link) values (?, ?)";
+        long chatId = jdbcChatRepository.findById(chatApiId).get().getId();
+        String sql3 = "SELECT * FROM links WHERE url = ? AND last_update = ?";
+        long linkId = jdbcTemplate.query(
+                sql3,
+                (rs, rowNum) -> new Link(
+                    rs.getLong("id"),
+                    rs.getString("url"),
+                    rs.getTimestamp("last_update").toInstant().atOffset(ZoneOffset.UTC)
+                ),
+                link.getUrl(),
+                link.getLastUpdated()
+            )
+            .get(0).getId();
+        jdbcTemplate.update(sql2, chatId, linkId);
+        return link;
+    }
+
     public Link remove(long chatApiId, String url) {
         String sql = "DELETE FROM chat_links WHERE id_chat = ? AND id_link = ?";
         long chatId = jdbcChatRepository.findById(chatApiId).get().getId();
@@ -44,12 +66,18 @@ public class JdbcLinkRepository {
     }
 
     public void update(Link link, OffsetDateTime newLastUpdate) {
-        jdbcTemplate.update("UPDATE Link SET last_update = ? WHERE id = ?", newLastUpdate, link.getId());
+        jdbcTemplate.update("UPDATE links SET last_update = ? WHERE id = ?", newLastUpdate, link.getId());
     }
 
     public Optional<Link> findByUrl(String url) {
         String sql = "SELECT * FROM links WHERE url = ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Link.class), url).stream().findAny();
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new Link(
+                rs.getLong("id"),
+                rs.getString("url"),
+                rs.getTimestamp("last_update").toInstant().atOffset(ZoneOffset.UTC)
+            ),
+            url
+        ).stream().findAny();
     }
 
     public List<Chat> findUsersWithLink(String url) {
@@ -64,11 +92,27 @@ public class JdbcLinkRepository {
     public List<Link> findAll(long apiId) {
         long idChat = jdbcChatRepository.findById(apiId).get().getId();
         String sql = "SELECT * FROM chat_links WHERE id_chat = ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Link.class), idChat).stream().toList();
+        return jdbcTemplate.query(
+            sql,
+            (rs, rowNum) -> new Link(
+                rs.getLong("id"),
+                rs.getString("url"),
+                rs.getTimestamp("last_update").toInstant().atOffset(ZoneOffset.UTC)
+            ),
+            idChat
+        ).stream().toList();
     }
 
     public List<Link> findAllLinksUpdatedBefore(OffsetDateTime timeBias) {
-        String sql = "SELECT * FROM links WHERE last_updated < ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Link.class), timeBias).stream().toList();
+        String sql = "SELECT * FROM links WHERE last_update < ?";
+        return jdbcTemplate.query(
+            sql,
+            (rs, rowNum) -> new Link(
+                rs.getLong("id"),
+                rs.getString("url"),
+                rs.getTimestamp("last_update").toInstant().atOffset(ZoneOffset.UTC)
+            ),
+            timeBias
+        ).stream().toList();
     }
 }

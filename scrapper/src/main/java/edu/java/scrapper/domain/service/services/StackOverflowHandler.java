@@ -22,7 +22,7 @@ public class StackOverflowHandler implements LinkHandler {
     @SuppressWarnings("MagicNumber")
     public boolean checkLinkForUpdates(Link link) {
         String url = link.getUrl();
-        String[] partsOfUrl = url.split("/", 5);
+        String[] partsOfUrl = url.split("/", 6);
         long id = Long.parseLong(partsOfUrl[4]);
         var updateFromSite = stackOverflowClient.getQuestion(id);
         OffsetDateTime updatedTime = updateFromSite.items().get(0).lastEditDate();

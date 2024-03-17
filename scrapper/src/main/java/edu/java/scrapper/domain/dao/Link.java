@@ -10,7 +10,8 @@ public class Link {
     public Link() {
     }
 
-    public Link(String url, OffsetDateTime lastUpdated) {
+    public Link(long id, String url, OffsetDateTime lastUpdated) {
+        this.id = id;
         this.url = url;
         this.lastUpdated = lastUpdated;
     }

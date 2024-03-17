@@ -19,19 +19,16 @@ public class JdbcLinkUpdateService implements LinkUpdateService {
     private final JdbcLinkRepository linkRepository;
     private final GitHubHandler gitHubHandler;
     private final StackOverflowHandler stackOverflowHandler;
-    private final StackOverflowClient stackOverflowClient;
 
     @Autowired
     public JdbcLinkUpdateService(
         JdbcLinkRepository linkRepository,
         GitHubHandler gitHubHandler,
-        StackOverflowHandler stackOverflowHandler,
-        StackOverflowClient stackOverflowClient
+        StackOverflowHandler stackOverflowHandler
     ) {
         this.linkRepository = linkRepository;
         this.gitHubHandler = gitHubHandler;
         this.stackOverflowHandler = stackOverflowHandler;
-        this.stackOverflowClient = stackOverflowClient;
     }
 
     @Override
@@ -39,7 +36,6 @@ public class JdbcLinkUpdateService implements LinkUpdateService {
         List<Link> updatedLinks = findLinksUpdatedDuringThePeriod(linkCheckPeriodInMinutes).stream()
             .filter(this::checkLinkForUpdates)
             .toList();
-
         return convertListForRequest(updatedLinks);
     }
 
@@ -59,7 +55,7 @@ public class JdbcLinkUpdateService implements LinkUpdateService {
     private List<Link> findLinksUpdatedDuringThePeriod(long timePeriod) {
         var timeBias = OffsetDateTime.now().minusMinutes(timePeriod);
         var allLinksNotUpdated = linkRepository.findAllLinksUpdatedBefore(timeBias);
-        return allLinksNotUpdated.stream().toList();
+        return allLinksNotUpdated;
     }
 
     private boolean checkLinkForUpdates(Link link) {
