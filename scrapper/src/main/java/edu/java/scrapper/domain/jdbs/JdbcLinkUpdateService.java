@@ -1,6 +1,5 @@
 package edu.java.scrapper.domain.jdbs;
 
-import edu.java.scrapper.client.GitHubClient;
 import edu.java.scrapper.client.StackOverflowClient;
 import edu.java.scrapper.domain.dao.Link;
 import edu.java.scrapper.domain.repository.JdbcLinkRepository;
@@ -44,15 +43,16 @@ public class JdbcLinkUpdateService implements LinkUpdateService {
         return convertListForRequest(updatedLinks);
     }
 
-    private List<LinkUpdateRequest> convertListForRequest(List<Link> links){
+    private List<LinkUpdateRequest> convertListForRequest(List<Link> links) {
         return links.stream()
             .map(link -> new LinkUpdateRequest(
                     link.getId(),
                     link.getUrl(),
                     linkRepository.findUsersWithLink(link.getUrl()).stream()
                         .map(chat -> chat.getApiId())
-                        .toList())
+                        .toList()
                 )
+            )
             .toList();
     }
 
@@ -62,13 +62,12 @@ public class JdbcLinkUpdateService implements LinkUpdateService {
         return allLinksNotUpdated.stream().toList();
     }
 
-    private boolean checkLinkForUpdates(Link link){
+    private boolean checkLinkForUpdates(Link link) {
         String url = link.getUrl();
         LinkHandler handler = null;
-        if(url.contains("stackoverflow")){
+        if (url.contains("stackoverflow")) {
             handler = stackOverflowHandler;
-        }
-        else if (url.contains("github")){
+        } else if (url.contains("github")) {
             handler = gitHubHandler;
         }
         return handler.checkLinkForUpdates(link);

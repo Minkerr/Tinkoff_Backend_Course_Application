@@ -43,7 +43,7 @@ public class JdbcLinkRepository {
         return findByUrl(url).get();
     }
 
-    public void update(Link link, OffsetDateTime newLastUpdate){
+    public void update(Link link, OffsetDateTime newLastUpdate) {
         jdbcTemplate.update("UPDATE Link SET last_update = ? WHERE id = ?", newLastUpdate, link.getId());
     }
 
@@ -67,7 +67,7 @@ public class JdbcLinkRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Link.class), idChat).stream().toList();
     }
 
-    public List<Link> findAllLinksUpdatedBefore(OffsetDateTime timeBias){
+    public List<Link> findAllLinksUpdatedBefore(OffsetDateTime timeBias) {
         String sql = "SELECT * FROM links WHERE last_updated < ?";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Link.class), timeBias).stream().toList();
     }

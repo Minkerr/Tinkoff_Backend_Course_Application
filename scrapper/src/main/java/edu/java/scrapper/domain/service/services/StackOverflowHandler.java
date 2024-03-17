@@ -3,12 +3,12 @@ package edu.java.scrapper.domain.service.services;
 import edu.java.scrapper.client.StackOverflowClient;
 import edu.java.scrapper.domain.dao.Link;
 import edu.java.scrapper.domain.repository.JdbcLinkRepository;
+import java.time.OffsetDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.OffsetDateTime;
 
 @Service
-public class StackOverflowHandler implements LinkHandler{
+public class StackOverflowHandler implements LinkHandler {
     private final StackOverflowClient stackOverflowClient;
     private final JdbcLinkRepository linkRepository;
 
@@ -19,6 +19,7 @@ public class StackOverflowHandler implements LinkHandler{
     }
 
     @Override
+    @SuppressWarnings("MagicNumber")
     public boolean checkLinkForUpdates(Link link) {
         String url = link.getUrl();
         String[] partsOfUrl = url.split("/", 5);
