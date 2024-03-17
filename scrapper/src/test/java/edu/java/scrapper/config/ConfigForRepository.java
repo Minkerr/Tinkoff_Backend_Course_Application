@@ -11,7 +11,6 @@ import javax.sql.DataSource;
 import static edu.java.scrapper.config.IntegrationTest.POSTGRES;
 
 @Configuration
-@EnableTransactionManagement
 public class ConfigForRepository {
     @Bean
     public JdbcTemplate jdbcTemplate() {
