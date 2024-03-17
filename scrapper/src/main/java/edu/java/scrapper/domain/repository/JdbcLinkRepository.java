@@ -1,6 +1,7 @@
 package edu.java.scrapper.domain.repository;
 
 import edu.java.scrapper.domain.dao.Link;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,8 +26,8 @@ public class JdbcLinkRepository {
         jdbcTemplate.update(sql, link.getUrl());
     }
 
-    public Link findByUrl(String url) {
+    public Optional<Link> findByUrl(String url) {
         String sql = "SELECT * FROM links WHERE url = ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Link.class), url).get(0);
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Link.class), url).stream().findAny();
     }
 }

@@ -9,8 +9,17 @@ public class Chat {
     OffsetDateTime createdAt;
     List<Link> links;
 
-    public Chat(long id, OffsetDateTime createdAt, List<Link> links) {
+    public Chat() {
+    }
+
+    public Chat(long apiId, OffsetDateTime createdAt) {
+        this.apiId = apiId;
+        this.createdAt = createdAt;
+    }
+
+    public Chat(long id, long apiId, OffsetDateTime createdAt, List<Link> links) {
         this.id = id;
+        this.apiId = apiId;
         this.createdAt = createdAt;
         this.links = links;
     }

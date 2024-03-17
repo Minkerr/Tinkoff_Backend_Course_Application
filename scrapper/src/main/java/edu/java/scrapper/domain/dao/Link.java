@@ -7,6 +7,14 @@ public class Link {
     String url;
     OffsetDateTime lastUpdated;
 
+    public Link() {
+    }
+
+    public Link(String url, OffsetDateTime lastUpdated) {
+        this.url = url;
+        this.lastUpdated = lastUpdated;
+    }
+
     public Link(long id, String url) {
         this.id = id;
         this.url = url;
