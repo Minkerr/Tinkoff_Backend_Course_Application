@@ -41,7 +41,6 @@ public class BotClientTest {
         LinkUpdateRequest request = new LinkUpdateRequest(
             1L,
             "1",
-            "1",
             List.of(1L)
         );
         var expected = "Update has been handled";
