@@ -1,4 +1,5 @@
-package edu.java.scrapper.dao;
+package edu.java.scrapper.domain.dao;
+
 import java.time.OffsetDateTime;
 
 public class Link {
