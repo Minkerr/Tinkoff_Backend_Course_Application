@@ -94,13 +94,7 @@ public class JdbcLinkRepository {
         long idChat = jdbcChatRepository.findById(apiId).get().getId();
         String sql = "SELECT * FROM chat_links WHERE id_chat = ?";
         return jdbcTemplate.query(
-            sql,
-            (rs, rowNum) -> new Link(
-                rs.getLong("id"),
-                rs.getString("url"),
-                rs.getTimestamp("last_update").toInstant().atOffset(ZoneOffset.UTC)
-            ),
-            idChat
+            sql, new BeanPropertyRowMapper<>(Link.class), idChat
         ).stream().toList();
     }
 
