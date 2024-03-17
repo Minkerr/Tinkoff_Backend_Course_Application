@@ -1,6 +1,5 @@
 package edu.java.scrapper.domain.jdbs;
 
-import edu.java.scrapper.client.StackOverflowClient;
 import edu.java.scrapper.domain.dao.Link;
 import edu.java.scrapper.domain.repository.JdbcLinkRepository;
 import edu.java.scrapper.domain.service.LinkUpdateService;

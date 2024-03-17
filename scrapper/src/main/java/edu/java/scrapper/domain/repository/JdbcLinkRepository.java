@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@SuppressWarnings("MultipleStringLiterals")
 public class JdbcLinkRepository {
     private final JdbcTemplate jdbcTemplate;
     private final JdbcChatRepository jdbcChatRepository;
