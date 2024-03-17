@@ -1,12 +1,11 @@
 package edu.java.scrapper.domain.jdbs;
 
 import edu.java.scrapper.domain.dao.Link;
-import edu.java.scrapper.domain.repository.JdbcChatRepository;
 import edu.java.scrapper.domain.repository.JdbcLinkRepository;
 import edu.java.scrapper.domain.service.LinkService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class JdbcLinkService implements LinkService {

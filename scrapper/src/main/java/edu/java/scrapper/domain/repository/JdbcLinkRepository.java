@@ -24,7 +24,7 @@ public class JdbcLinkRepository {
 
     public Link add(long chatApiId, String url) {
         var linkDontExist = findByUrl(url).isEmpty();
-        if (linkDontExist){
+        if (linkDontExist) {
             String sql = "INSERT INTO links (url, last_update) values (?, ?)";
             jdbcTemplate.update(sql, url, OffsetDateTime.now());
         }
@@ -48,14 +48,16 @@ public class JdbcLinkRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Link.class), url).stream().findAny();
     }
 
-    public List<Chat> findUsersWithLink (String url){
-        if(findByUrl(url).isEmpty()) return new ArrayList<>();
+    public List<Chat> findUsersWithLink(String url) {
+        if (findByUrl(url).isEmpty()) {
+            return new ArrayList<>();
+        }
         long idLink = findByUrl(url).get().getId();
         String sql = "SELECT * FROM chat_links WHERE id_link = ?";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Chat.class), idLink).stream().toList();
     }
 
-    public List<Link> findAll(long apiId){
+    public List<Link> findAll(long apiId) {
         long idChat = jdbcChatRepository.findById(apiId).get().getId();
         String sql = "SELECT * FROM chat_links WHERE id_chat = ?";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Link.class), idChat).stream().toList();
