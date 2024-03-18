@@ -2,7 +2,7 @@ package edu.java.scrapper.domain.service.services;
 
 import edu.java.scrapper.client.StackOverflowClient;
 import edu.java.scrapper.domain.dao.Link;
-import edu.java.scrapper.domain.repository.JdbcLinkRepository;
+import edu.java.scrapper.domain.service.LinkService;
 import java.time.OffsetDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class StackOverflowHandler implements LinkHandler {
     private final StackOverflowClient stackOverflowClient;
-    private final JdbcLinkRepository linkRepository;
+    private final LinkService linkService;
 
     @Autowired
-    public StackOverflowHandler(StackOverflowClient stackOverflowClient, JdbcLinkRepository linkRepository) {
+    public StackOverflowHandler(StackOverflowClient stackOverflowClient, LinkService linkService) {
         this.stackOverflowClient = stackOverflowClient;
-        this.linkRepository = linkRepository;
+        this.linkService = linkService;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class StackOverflowHandler implements LinkHandler {
         var updateFromSite = stackOverflowClient.getQuestion(id);
         OffsetDateTime updatedTime = updateFromSite.items().get(0).lastEditDate();
         if (updatedTime.isAfter(link.getLastUpdated())) {
-            linkRepository.update(link, updatedTime);
+            linkService.update(link, updatedTime);
             return true;
         }
         return false;

@@ -2,7 +2,7 @@ package edu.java.scrapper.domain.service.services;
 
 import edu.java.scrapper.client.GitHubClient;
 import edu.java.scrapper.domain.dao.Link;
-import edu.java.scrapper.domain.repository.JdbcLinkRepository;
+import edu.java.scrapper.domain.service.LinkService;
 import java.time.OffsetDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class GitHubHandler implements LinkHandler {
     private final GitHubClient gitHubClient;
-    private final JdbcLinkRepository linkRepository;
+    private final LinkService linkService;
 
     @Autowired
-    public GitHubHandler(GitHubClient gitHubClient, JdbcLinkRepository linkRepository) {
+    public GitHubHandler(GitHubClient gitHubClient, LinkService linkService) {
         this.gitHubClient = gitHubClient;
-        this.linkRepository = linkRepository;
+        this.linkService = linkService;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class GitHubHandler implements LinkHandler {
         var updateFromSite = gitHubClient.getRepository(owner, repo);
         OffsetDateTime updatedTime = updateFromSite.pushedAt();
         if (updatedTime.isAfter(link.getLastUpdated())) {
-            linkRepository.update(link, updatedTime);
+            linkService.update(link, updatedTime);
             return true;
         }
         return false;

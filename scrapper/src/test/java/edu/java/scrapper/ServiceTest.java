@@ -1,44 +1,35 @@
 package edu.java.scrapper;
 
-import edu.java.scrapper.client.GitHubClient;
-import edu.java.scrapper.client.StackOverflowClient;
-import edu.java.scrapper.config.ConfigForRepository;
 import edu.java.scrapper.domain.dao.Link;
-import edu.java.scrapper.domain.jdbs.JdbcLinkUpdateService;
-import edu.java.scrapper.domain.repository.JdbcChatRepository;
-import edu.java.scrapper.domain.repository.JdbcLinkRepository;
-import edu.java.scrapper.domain.service.services.GitHubHandler;
-import edu.java.scrapper.domain.service.services.LinkHandler;
-import edu.java.scrapper.domain.service.services.StackOverflowHandler;
+import edu.java.scrapper.domain.service.ChatService;
+import edu.java.scrapper.domain.service.LinkService;
+import edu.java.scrapper.domain.service.LinkUpdateService;
+import java.time.OffsetDateTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import java.time.OffsetDateTime;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @Testcontainers
 public class ServiceTest {
     @Autowired
-    JdbcLinkRepository linkRepository;
+    LinkService linkService;
     @Autowired
-    JdbcChatRepository chatRepository;
+    ChatService chatService;
     @Autowired
-    JdbcTemplate jdbcTemplate;
-    @Autowired
-    JdbcLinkUpdateService linkUpdateService;
+    LinkUpdateService linkUpdateService;
 
     @Test
     @Transactional
     @Rollback
     public void linkUpdateService_shouldCheckUpdates() {
         //arrange
-        chatRepository.add(1L);
+        chatService.add(1L);
+        chatService.add(2L);
         OffsetDateTime time = OffsetDateTime.now();
         String url1 = "https://github.com/Minkerr/Tinkoff_Backend_Course_Application";
         String url2 = "https://github.com/Minkerr/Tinkoff_Backend_Course";
@@ -49,14 +40,19 @@ public class ServiceTest {
         Link link3 = new Link(3, url3, time.minusYears(10));
         Link link4 = new Link(4, url4, time);
         //act
-        linkRepository.addLink(1L, link1);
-        linkRepository.addLink(1L, link2);
-        linkRepository.addLink(1L, link3);
-        linkRepository.addLink(1L, link4);
+        linkService.addLink(1L, link1);
+        linkService.addLink(2L, link1);
+        linkService.addLink(1L, link2);
+        linkService.addLink(1L, link3);
+        linkService.addLink(1L, link4);
         var updatedLinks = linkUpdateService.update();
         //assert
         assertThat(updatedLinks.size()).isEqualTo(2);
         assertThat(updatedLinks.get(0).url()).isEqualTo(url1);
         assertThat(updatedLinks.get(1).url()).isEqualTo(url3);
+        assertThat(updatedLinks.get(0).tgChatIds().size()).isEqualTo(2);
+        assertThat(updatedLinks.get(0).tgChatIds().get(0)).isEqualTo(1L);
+        assertThat(updatedLinks.get(0).tgChatIds().get(1)).isEqualTo(2L);
+
     }
 }

@@ -1,7 +1,9 @@
 package edu.java.scrapper.domain.jdbs;
 
+import edu.java.scrapper.domain.dao.Chat;
 import edu.java.scrapper.domain.repository.JdbcChatRepository;
 import edu.java.scrapper.domain.service.ChatService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,13 +19,19 @@ public class JdbcChatService implements ChatService {
 
     @Override
     @Transactional
-    public void register(long tgChatId) {
+    public void add(long tgChatId) {
         chatRepository.add(tgChatId);
     }
 
     @Override
     @Transactional
-    public void unregister(long tgChatId) {
+    public void remove(long tgChatId) {
         chatRepository.remove(tgChatId);
+    }
+
+    @Override
+    @Transactional
+    public Optional<Chat> findById(long apiId) {
+        return chatRepository.findById(apiId);
     }
 }

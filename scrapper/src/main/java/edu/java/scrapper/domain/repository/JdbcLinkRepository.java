@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -38,7 +37,7 @@ public class JdbcLinkRepository {
     }
 
     public Link addLink(long chatApiId, Link link) {
-        String sql = "INSERT INTO links (url, last_update) values (?, ?)";
+        String sql = "INSERT INTO links (url, last_update) values (?, ?) ON CONFLICT (url) DO NOTHING";
         jdbcTemplate.update(sql, link.getUrl(), link.getLastUpdated());
         String sql2 = "INSERT INTO chat_links (id_chat, id_link) values (?, ?)";
         long chatId = jdbcChatRepository.findById(chatApiId).get().getId();
@@ -86,16 +85,17 @@ public class JdbcLinkRepository {
             return new ArrayList<>();
         }
         long idLink = findByUrl(url).get().getId();
-        String sql = "SELECT * FROM chat_links WHERE id_link = ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Chat.class), idLink).stream().toList();
-    }
-
-    public List<Link> findAll(long apiId) {
-        long idChat = jdbcChatRepository.findById(apiId).get().getId();
-        String sql = "SELECT * FROM chat_links WHERE id_chat = ?";
+        String sql = "SELECT * FROM chats WHERE id IN (SELECT id_chat FROM chat_links WHERE id_link = ?)";
         return jdbcTemplate.query(
-            sql, new BeanPropertyRowMapper<>(Link.class), idChat
-        ).stream().toList();
+            sql,
+            (r, row) -> new Chat(
+                r.getLong("id"),
+                r.getLong("api_id"),
+                r.getTimestamp("created_at").toInstant().atOffset(ZoneOffset.UTC),
+                new ArrayList<>()
+            ),
+            idLink
+        );
     }
 
     public List<Link> findAllLinksUpdatedBefore(OffsetDateTime timeBias) {

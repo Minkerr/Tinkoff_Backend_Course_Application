@@ -1,7 +1,12 @@
 package edu.java.scrapper.domain.service;
 
-public interface ChatService {
-    void register(long tgChatId);
+import edu.java.scrapper.domain.dao.Chat;
+import java.util.Optional;
 
-    void unregister(long tgChatId);
+public interface ChatService {
+    void add(long tgChatId);
+
+    void remove(long tgChatId);
+
+    Optional<Chat> findById(long apiId);
 }

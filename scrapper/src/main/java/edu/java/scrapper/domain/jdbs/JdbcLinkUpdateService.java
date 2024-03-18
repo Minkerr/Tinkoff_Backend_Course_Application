@@ -1,7 +1,7 @@
 package edu.java.scrapper.domain.jdbs;
 
 import edu.java.scrapper.domain.dao.Link;
-import edu.java.scrapper.domain.repository.JdbcLinkRepository;
+import edu.java.scrapper.domain.service.LinkService;
 import edu.java.scrapper.domain.service.LinkUpdateService;
 import edu.java.scrapper.domain.service.services.GitHubHandler;
 import edu.java.scrapper.domain.service.services.LinkHandler;
@@ -15,17 +15,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class JdbcLinkUpdateService implements LinkUpdateService {
     private final long linkCheckPeriodInMinutes = 1;
-    private final JdbcLinkRepository linkRepository;
+    private final LinkService linkService;
     private final GitHubHandler gitHubHandler;
     private final StackOverflowHandler stackOverflowHandler;
 
     @Autowired
     public JdbcLinkUpdateService(
-        JdbcLinkRepository linkRepository,
+        LinkService linkService,
         GitHubHandler gitHubHandler,
         StackOverflowHandler stackOverflowHandler
     ) {
-        this.linkRepository = linkRepository;
+        this.linkService = linkService;
         this.gitHubHandler = gitHubHandler;
         this.stackOverflowHandler = stackOverflowHandler;
     }
@@ -43,7 +43,7 @@ public class JdbcLinkUpdateService implements LinkUpdateService {
             .map(link -> new LinkUpdateRequest(
                     link.getId(),
                     link.getUrl(),
-                    linkRepository.findUsersWithLink(link.getUrl()).stream()
+                    linkService.findUsersWithLink(link.getUrl()).stream()
                         .map(chat -> chat.getApiId())
                         .toList()
                 )
@@ -53,7 +53,7 @@ public class JdbcLinkUpdateService implements LinkUpdateService {
 
     private List<Link> findLinksUpdatedDuringThePeriod(long timePeriod) {
         var timeBias = OffsetDateTime.now().minusMinutes(timePeriod);
-        var allLinksNotUpdated = linkRepository.findAllLinksUpdatedBefore(timeBias);
+        var allLinksNotUpdated = linkService.findAllLinksUpdatedBefore(timeBias);
         return allLinksNotUpdated;
     }
 
