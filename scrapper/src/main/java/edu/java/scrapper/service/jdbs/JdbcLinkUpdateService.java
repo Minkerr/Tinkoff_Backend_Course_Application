@@ -1,12 +1,12 @@
 package edu.java.scrapper.service.jdbs;
 
 import edu.java.scrapper.domain.model.Link;
+import edu.java.scrapper.dto.LinkUpdateRequest;
 import edu.java.scrapper.service.LinkService;
 import edu.java.scrapper.service.LinkUpdateService;
 import edu.java.scrapper.service.handler.GitHubHandler;
 import edu.java.scrapper.service.handler.LinkHandler;
 import edu.java.scrapper.service.handler.StackOverflowHandler;
-import edu.java.scrapper.dto.LinkUpdateRequest;
 import java.time.OffsetDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

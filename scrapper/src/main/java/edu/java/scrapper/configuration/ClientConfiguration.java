@@ -29,7 +29,7 @@ public class ClientConfiguration {
     }
 
     @Bean
-    public BotClient BotClient() {
+    public BotClient botClient() {
         return new BotClient(botBaseUrl);
     }
 }
