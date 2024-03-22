@@ -2,7 +2,7 @@ package edu.java.bot.dto;
 
 import java.util.List;
 
-public record LinkUpdateResponse(
+public record LinkUpdateRequest(
     long id,
     String url,
     List<Long> tgChatIds

@@ -4,6 +4,7 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import edu.java.bot.commands.Command;
 import edu.java.bot.configuration.ApplicationConfig;
@@ -33,6 +34,10 @@ public class Bot implements UpdatesListener, AutoCloseable {
             bot.execute(updateListener.process(update));
         }
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
+    }
+
+    public void execute(SendMessage sendMessage){
+        bot.execute(sendMessage);
     }
 
     public void start() {

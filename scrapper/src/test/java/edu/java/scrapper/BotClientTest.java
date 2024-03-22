@@ -20,12 +20,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BotClientTest {
     private static WireMockServer wireMockServer;
     private static BotClient botClient;
-    private static final String baseUrl = "http://localhost:8080";
+    private static final String baseUrl = "http://localhost:8090";
 
     @BeforeAll
     public static void setUp() {
         botClient = new BotClient(baseUrl);
-        wireMockServer = new WireMockServer(8080);
+        wireMockServer = new WireMockServer(8090);
         wireMockServer.start();
         WireMock.configureFor("localhost", wireMockServer.port());
     }
