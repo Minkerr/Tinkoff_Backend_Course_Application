@@ -36,7 +36,7 @@ public class Bot implements UpdatesListener, AutoCloseable {
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
 
-    public void execute(SendMessage sendMessage){
+    public void execute(SendMessage sendMessage) {
         bot.execute(sendMessage);
     }
 
