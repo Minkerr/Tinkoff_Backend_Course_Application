@@ -53,6 +53,7 @@ public class ServiceTest {
         assertThat(updatedLinks.get(0).tgChatIds().size()).isEqualTo(2);
         assertThat(updatedLinks.get(0).tgChatIds().get(0)).isEqualTo(1L);
         assertThat(updatedLinks.get(0).tgChatIds().get(1)).isEqualTo(2L);
-
+        updatedLinks = linkUpdateService.update();// check that links are rewritten in db
+        assertThat(updatedLinks.size()).isEqualTo(0);
     }
 }

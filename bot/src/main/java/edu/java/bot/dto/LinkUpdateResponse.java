@@ -2,7 +2,7 @@ package edu.java.bot.dto;
 
 import java.util.List;
 
-public record LinkUpdate(
+public record LinkUpdateResponse(
     long id,
     String url,
     String description,

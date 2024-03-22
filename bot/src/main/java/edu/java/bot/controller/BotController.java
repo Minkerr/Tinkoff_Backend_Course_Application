@@ -1,6 +1,6 @@
 package edu.java.bot.controller;
 
-import edu.java.bot.dto.LinkUpdate;
+import edu.java.bot.dto.LinkUpdateResponse;
 import edu.java.bot.service.BotUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +14,7 @@ public class BotController {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @PostMapping("/updates")
-    public void processUpdate(@RequestBody LinkUpdate linkUpdateRequest) {
+    public void processUpdate(@RequestBody LinkUpdateResponse linkUpdateRequest) {
         LOGGER.info("updates are added");
 
     }

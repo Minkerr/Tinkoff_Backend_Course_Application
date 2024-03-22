@@ -20,7 +20,7 @@ public class GitHubHandler implements LinkHandler {
 
     @Override
     @SuppressWarnings("MagicNumber")
-    public boolean checkLinkForUpdates(Link link) {
+    public boolean checkLinkForUpdatesAndUpdateIfItNecessary(Link link) {
         String url = link.getUrl();
         String[] partsOfUrl = url.split("/", 5);
         String owner = partsOfUrl[3];

@@ -33,7 +33,7 @@ public class JdbcLinkUpdateService implements LinkUpdateService {
     @Override
     public List<LinkUpdateRequest> update() {
         List<Link> updatedLinks = findLinksUpdatedDuringThePeriod(linkCheckPeriodInMinutes).stream()
-            .filter(this::checkLinkForUpdates)
+            .filter(this::checkLinkForUpdatesAndUpdateIfItNecessary)
             .toList();
         return convertListForRequest(updatedLinks);
     }
@@ -57,7 +57,7 @@ public class JdbcLinkUpdateService implements LinkUpdateService {
         return allLinksNotUpdated;
     }
 
-    private boolean checkLinkForUpdates(Link link) {
+    private boolean checkLinkForUpdatesAndUpdateIfItNecessary(Link link) {
         String url = link.getUrl();
         LinkHandler handler = null;
         if (url.contains("stackoverflow")) {
@@ -65,6 +65,6 @@ public class JdbcLinkUpdateService implements LinkUpdateService {
         } else if (url.contains("github")) {
             handler = gitHubHandler;
         }
-        return handler.checkLinkForUpdates(link);
+        return handler.checkLinkForUpdatesAndUpdateIfItNecessary(link);
     }
 }

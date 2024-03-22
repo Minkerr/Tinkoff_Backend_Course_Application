@@ -39,25 +39,21 @@ public class JdbcLinkService implements LinkService {
     }
 
     @Override
-    @Transactional
     public void update(Link link, OffsetDateTime newLastUpdate) {
         linkRepository.update(link, newLastUpdate);
     }
 
     @Override
-    @Transactional
     public Optional<Link> findByUrl(String url) {
         return linkRepository.findByUrl(url);
     }
 
     @Override
-    @Transactional
     public List<Chat> findUsersWithLink(String url) {
         return linkRepository.findUsersWithLink(url);
     }
 
     @Override
-    @Transactional
     public List<Link> findAllLinksUpdatedBefore(OffsetDateTime timeBias) {
         return linkRepository.findAllLinksUpdatedBefore(timeBias);
     }

@@ -20,7 +20,7 @@ public class StackOverflowHandler implements LinkHandler {
 
     @Override
     @SuppressWarnings("MagicNumber")
-    public boolean checkLinkForUpdates(Link link) {
+    public boolean checkLinkForUpdatesAndUpdateIfItNecessary(Link link) {
         String url = link.getUrl();
         String[] partsOfUrl = url.split("/", 6);
         long id = Long.parseLong(partsOfUrl[4]);

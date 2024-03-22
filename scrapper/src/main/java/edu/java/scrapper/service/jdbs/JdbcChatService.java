@@ -18,19 +18,16 @@ public class JdbcChatService implements ChatService {
     }
 
     @Override
-    @Transactional
     public void add(long tgChatId) {
         chatRepository.add(tgChatId);
     }
 
     @Override
-    @Transactional
     public void remove(long tgChatId) {
         chatRepository.remove(tgChatId);
     }
 
     @Override
-    @Transactional
     public Optional<Chat> findById(long apiId) {
         return chatRepository.findById(apiId);
     }
