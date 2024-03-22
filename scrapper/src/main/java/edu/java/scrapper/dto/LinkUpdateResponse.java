@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 
-public record LinkUpdateRequest(
+public record LinkUpdateResponse(
     long id,
     String url,
 

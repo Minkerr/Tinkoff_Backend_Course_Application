@@ -27,10 +27,10 @@ api:
   stackoverflow:
     base-url: https://api.stackexchange.com/
   bot:
-    base-url: http://localhost:8080
+    base-url: http://localhost:8090
 
 springdoc:
   swagger-ui:
     path: /swagger-ui
   bot:
-    base-url: http://localhost:8080
+    base-url: http://localhost:8090
