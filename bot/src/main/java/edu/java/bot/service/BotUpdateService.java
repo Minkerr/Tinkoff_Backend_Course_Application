@@ -19,6 +19,6 @@ public class BotUpdateService {
         String message = "There has been a change in the link: \n" + request.url();
 
         request.tgChatIds().forEach((telegramId) ->
-            bot.execute(new SendMessage(1078618715L, message)));
+            bot.execute(new SendMessage(telegramId, message)));
     }
 }
