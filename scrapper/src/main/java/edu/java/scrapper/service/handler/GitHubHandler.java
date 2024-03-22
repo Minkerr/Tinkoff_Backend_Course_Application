@@ -1,8 +1,8 @@
-package edu.java.scrapper.domain.service.services;
+package edu.java.scrapper.service.handler;
 
 import edu.java.scrapper.client.GitHubClient;
-import edu.java.scrapper.domain.dao.Link;
-import edu.java.scrapper.domain.service.LinkService;
+import edu.java.scrapper.domain.model.Link;
+import edu.java.scrapper.service.LinkService;
 import java.time.OffsetDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
 package edu.java.scrapper;
 
-import edu.java.scrapper.domain.dao.Link;
-import edu.java.scrapper.domain.service.ChatService;
-import edu.java.scrapper.domain.service.LinkService;
-import edu.java.scrapper.domain.service.LinkUpdateService;
+import edu.java.scrapper.domain.model.Link;
+import edu.java.scrapper.service.ChatService;
+import edu.java.scrapper.service.LinkService;
+import edu.java.scrapper.service.LinkUpdateService;
 import java.time.OffsetDateTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

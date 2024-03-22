@@ -1,7 +1,7 @@
 package edu.java.scrapper;
 
-import edu.java.scrapper.domain.service.ChatService;
-import edu.java.scrapper.domain.service.LinkService;
+import edu.java.scrapper.service.ChatService;
+import edu.java.scrapper.service.LinkService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

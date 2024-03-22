@@ -1,6 +1,6 @@
 package edu.java.scrapper.domain.repository;
 
-import edu.java.scrapper.domain.dao.Chat;
+import edu.java.scrapper.domain.model.Chat;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

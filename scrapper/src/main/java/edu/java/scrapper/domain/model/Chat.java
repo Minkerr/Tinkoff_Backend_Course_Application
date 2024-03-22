@@ -1,4 +1,4 @@
-package edu.java.scrapper.domain.dao;
+package edu.java.scrapper.domain.model;
 
 import java.time.OffsetDateTime;
 import java.util.List;

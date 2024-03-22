@@ -1,11 +1,11 @@
-package edu.java.scrapper.domain.jdbs;
+package edu.java.scrapper.service.jdbs;
 
-import edu.java.scrapper.domain.dao.Link;
-import edu.java.scrapper.domain.service.LinkService;
-import edu.java.scrapper.domain.service.LinkUpdateService;
-import edu.java.scrapper.domain.service.services.GitHubHandler;
-import edu.java.scrapper.domain.service.services.LinkHandler;
-import edu.java.scrapper.domain.service.services.StackOverflowHandler;
+import edu.java.scrapper.domain.model.Link;
+import edu.java.scrapper.service.LinkService;
+import edu.java.scrapper.service.LinkUpdateService;
+import edu.java.scrapper.service.handler.GitHubHandler;
+import edu.java.scrapper.service.handler.LinkHandler;
+import edu.java.scrapper.service.handler.StackOverflowHandler;
 import edu.java.scrapper.dto.LinkUpdateRequest;
 import java.time.OffsetDateTime;
 import java.util.List;

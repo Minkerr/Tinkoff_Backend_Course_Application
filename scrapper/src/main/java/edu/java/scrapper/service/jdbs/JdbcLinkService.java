@@ -1,9 +1,9 @@
-package edu.java.scrapper.domain.jdbs;
+package edu.java.scrapper.service.jdbs;
 
-import edu.java.scrapper.domain.dao.Chat;
-import edu.java.scrapper.domain.dao.Link;
+import edu.java.scrapper.domain.model.Chat;
+import edu.java.scrapper.domain.model.Link;
 import edu.java.scrapper.domain.repository.JdbcLinkRepository;
-import edu.java.scrapper.domain.service.LinkService;
+import edu.java.scrapper.service.LinkService;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;

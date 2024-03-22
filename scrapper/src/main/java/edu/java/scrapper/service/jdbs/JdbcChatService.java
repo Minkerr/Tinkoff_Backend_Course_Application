@@ -1,8 +1,8 @@
-package edu.java.scrapper.domain.jdbs;
+package edu.java.scrapper.service.jdbs;
 
-import edu.java.scrapper.domain.dao.Chat;
+import edu.java.scrapper.domain.model.Chat;
 import edu.java.scrapper.domain.repository.JdbcChatRepository;
-import edu.java.scrapper.domain.service.ChatService;
+import edu.java.scrapper.service.ChatService;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

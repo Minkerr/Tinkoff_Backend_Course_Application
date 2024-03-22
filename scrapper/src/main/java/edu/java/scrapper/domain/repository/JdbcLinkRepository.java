@@ -1,7 +1,7 @@
 package edu.java.scrapper.domain.repository;
 
-import edu.java.scrapper.domain.dao.Chat;
-import edu.java.scrapper.domain.dao.Link;
+import edu.java.scrapper.domain.model.Chat;
+import edu.java.scrapper.domain.model.Link;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -29,21 +29,21 @@ public class JdbcLinkRepository {
             String sql = "INSERT INTO links (url, last_update) values (?, ?)";
             jdbcTemplate.update(sql, url, OffsetDateTime.now());
         }
-        String sql2 = "INSERT INTO chat_links (id_chat, id_link) values (?, ?)";
+        String sqlForSecondTable = "INSERT INTO chat_links (id_chat, id_link) values (?, ?)";
         long linkId = findByUrl(url).get().getId();
         long chatId = jdbcChatRepository.findById(chatApiId).get().getId();
-        jdbcTemplate.update(sql2, chatId, linkId);
+        jdbcTemplate.update(sqlForSecondTable, chatId, linkId);
         return findByUrl(url).get();
     }
 
     public Link addLink(long chatApiId, Link link) {
         String sql = "INSERT INTO links (url, last_update) values (?, ?) ON CONFLICT (url) DO NOTHING";
         jdbcTemplate.update(sql, link.getUrl(), link.getLastUpdated());
-        String sql2 = "INSERT INTO chat_links (id_chat, id_link) values (?, ?)";
+        String sqlForSecondTable = "INSERT INTO chat_links (id_chat, id_link) values (?, ?)";
         long chatId = jdbcChatRepository.findById(chatApiId).get().getId();
-        String sql3 = "SELECT * FROM links WHERE url = ? AND last_update = ?";
+        String sqlForFindingLinks = "SELECT * FROM links WHERE url = ? AND last_update = ?";
         long linkId = jdbcTemplate.query(
-                sql3,
+                sqlForFindingLinks,
                 (rs, rowNum) -> new Link(
                     rs.getLong("id"),
                     rs.getString("url"),
@@ -53,7 +53,7 @@ public class JdbcLinkRepository {
                 link.getLastUpdated()
             )
             .get(0).getId();
-        jdbcTemplate.update(sql2, chatId, linkId);
+        jdbcTemplate.update(sqlForSecondTable, chatId, linkId);
         return link;
     }
 

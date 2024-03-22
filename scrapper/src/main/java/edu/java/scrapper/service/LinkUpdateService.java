@@ -1,4 +1,4 @@
-package edu.java.scrapper.domain.service;
+package edu.java.scrapper.service;
 
 import edu.java.scrapper.dto.LinkUpdateRequest;
 import java.util.List;

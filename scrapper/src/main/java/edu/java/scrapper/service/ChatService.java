@@ -1,6 +1,6 @@
-package edu.java.scrapper.domain.service;
+package edu.java.scrapper.service;
 
-import edu.java.scrapper.domain.dao.Chat;
+import edu.java.scrapper.domain.model.Chat;
 import java.util.Optional;
 
 public interface ChatService {
