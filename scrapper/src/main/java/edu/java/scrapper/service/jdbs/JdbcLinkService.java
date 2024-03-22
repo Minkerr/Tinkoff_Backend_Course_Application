@@ -54,6 +54,11 @@ public class JdbcLinkService implements LinkService {
     }
 
     @Override
+    public List<Link> findAllLinks(long chatApiId) {
+        return linkRepository.findAllLinks(chatApiId);
+    }
+
+    @Override
     public List<Link> findAllLinksUpdatedBefore(OffsetDateTime timeBias) {
         return linkRepository.findAllLinksUpdatedBefore(timeBias);
     }

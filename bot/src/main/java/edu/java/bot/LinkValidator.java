@@ -13,6 +13,7 @@ public class LinkValidator {
     }
 
     public boolean isLinkCorrect(String link) {
-        return Pattern.matches("^https:\\/\\/stackoverflow\\.com\\/questions\\/\\d+", link);
+        return Pattern.matches("^https:\\/\\/stackoverflow\\.com\\/questions\\/\\d+\\/?", link)
+            || Pattern.matches("https:\\/\\/github\\.com\\/[(a-zA-Z0-9_]+\\/[(a-zA-Z0-9_-]+\\/?", link);
     }
 }

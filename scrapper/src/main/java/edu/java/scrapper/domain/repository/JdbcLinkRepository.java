@@ -110,4 +110,24 @@ public class JdbcLinkRepository {
             timeBias
         ).stream().toList();
     }
+
+    public List<Link> findAllLinks(long chatApiId) {
+        String sql = """
+            SELECT * FROM links
+            WHERE id IN
+            (SELECT id_link FROM chat_links
+            WHERE id_chat IN
+            (SELECT id FROM chats
+            WHERE api_id = ?))
+            """;
+        return jdbcTemplate.query(
+            sql,
+            (rs, rowNum) -> new Link(
+                rs.getLong("id"),
+                rs.getString("url"),
+                rs.getTimestamp("last_update").toInstant().atOffset(ZoneOffset.UTC)
+            ),
+            chatApiId
+        ).stream().toList();
+    }
 }

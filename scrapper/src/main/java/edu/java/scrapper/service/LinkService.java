@@ -21,4 +21,6 @@ public interface LinkService {
 
     List<Link> findAllLinksUpdatedBefore(OffsetDateTime timeBias);
 
+    List<Link> findAllLinks(long chatApiId);
+
 }

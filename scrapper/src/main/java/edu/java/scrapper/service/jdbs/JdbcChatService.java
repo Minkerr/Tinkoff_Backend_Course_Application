@@ -18,7 +18,10 @@ public class JdbcChatService implements ChatService {
 
     @Override
     public void add(long tgChatId) {
-        chatRepository.add(tgChatId);
+        Optional<Chat> foundChat = chatRepository.findById(tgChatId);
+        if (foundChat.isEmpty()) {
+            chatRepository.add(tgChatId);
+        }
     }
 
     @Override
