@@ -4,12 +4,12 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.client.ScrapperClient;
 import edu.java.bot.commands.Command;
+import edu.java.bot.commands.TrackCommand;
+import edu.java.bot.dto.AddLinkRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import edu.java.bot.commands.TrackCommand;
-import edu.java.bot.dto.AddLinkRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

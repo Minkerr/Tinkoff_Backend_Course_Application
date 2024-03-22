@@ -32,7 +32,7 @@ public class ListCommand implements Command {
         for (var link : links) {
             linksStringed.append(link.url()).append("\n");
         }
-        return new SendMessage(update.message().chat().id(), "List of tracked links:\n" +
-            linksStringed);
+        return new SendMessage(update.message().chat().id(), "List of tracked links:\n"
+            + linksStringed);
     }
 }

@@ -2,10 +2,6 @@ package edu.java.scrapper.service;
 
 import edu.java.scrapper.dto.LinkResponse;
 import edu.java.scrapper.dto.ListLinksResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +9,6 @@ import org.springframework.stereotype.Service;
 public class ScrapperService {
     private final ChatService chatService;
     private final LinkService linkService;
-
 
     @Autowired
     public ScrapperService(ChatService chatService, LinkService linkService) {
@@ -31,7 +26,8 @@ public class ScrapperService {
 
     public ListLinksResponse getLinks(Long chatId) {
         var links = linkService.findAllLinks(chatId);
-        return new ListLinksResponse( links.size(),
+        return new ListLinksResponse(
+            links.size(),
             links.stream()
                 .map(elem -> new LinkResponse(elem.getId(), elem.getUrl()))
                 .toList()
