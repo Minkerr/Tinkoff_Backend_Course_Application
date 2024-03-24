@@ -6,12 +6,11 @@ import edu.java.scrapper.domain.model.Link;
 import edu.java.scrapper.domain.repository.jpa.JpaChatRepository;
 import edu.java.scrapper.domain.repository.jpa.JpaLinkRepository;
 import edu.java.scrapper.service.LinkService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class JpaLinkService implements LinkService {

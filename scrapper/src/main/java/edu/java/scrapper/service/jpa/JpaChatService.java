@@ -37,7 +37,7 @@ public class JpaChatService implements ChatService {
         ChatEntity entity = chatRepository.findChatEntityByApiId(apiId);
         if (entity != null) {
             return Optional.of(new Chat(entity.getId(), entity.getApiId(), OffsetDateTime.now(), List.of()));
-        }else {
+        } else {
             return Optional.empty();
         }
     }

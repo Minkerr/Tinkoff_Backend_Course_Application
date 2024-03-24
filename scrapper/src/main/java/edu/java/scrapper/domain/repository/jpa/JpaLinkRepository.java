@@ -2,11 +2,11 @@ package edu.java.scrapper.domain.repository.jpa;
 
 import edu.java.scrapper.domain.entity.ChatEntity;
 import edu.java.scrapper.domain.entity.LinkEntity;
+import java.time.OffsetDateTime;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import java.time.OffsetDateTime;
-import java.util.List;
 
 @Repository
 public interface JpaLinkRepository extends JpaRepository<LinkEntity, Long> {
