@@ -1,9 +1,7 @@
-package edu.java.scrapper.service.jdbs;
+package edu.java.scrapper.service;
 
 import edu.java.scrapper.domain.model.Link;
 import edu.java.scrapper.dto.LinkUpdateRequest;
-import edu.java.scrapper.service.LinkService;
-import edu.java.scrapper.service.LinkUpdateService;
 import edu.java.scrapper.service.handler.GitHubHandler;
 import edu.java.scrapper.service.handler.LinkHandler;
 import edu.java.scrapper.service.handler.StackOverflowHandler;

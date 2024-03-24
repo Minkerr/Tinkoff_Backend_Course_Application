@@ -3,7 +3,7 @@ package edu.java.scrapper;
 import edu.java.scrapper.client.BotClient;
 import edu.java.scrapper.dto.LinkUpdateRequest;
 import edu.java.scrapper.service.LinkUpdateService;
-import edu.java.scrapper.service.jdbs.JdbcLinkUpdateService;
+import edu.java.scrapper.service.JdbcLinkUpdateService;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

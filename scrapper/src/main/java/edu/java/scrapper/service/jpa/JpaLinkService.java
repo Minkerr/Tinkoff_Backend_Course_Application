@@ -8,6 +8,7 @@ import edu.java.scrapper.domain.repository.jpa.JpaLinkRepository;
 import edu.java.scrapper.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +45,7 @@ public class JpaLinkService implements LinkService {
     @Override
     public Link addLink(long chatApiId, Link link) {
         var entity = new LinkEntity();
+        entity.setId(link.getId());
         entity.setUrl(link.getUrl());
         entity.setLastUpdate(OffsetDateTime.now());
         entity.getChats().add(chatRepository.findChatEntityByApiId(chatApiId));
