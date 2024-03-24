@@ -7,11 +7,11 @@ import edu.java.bot.commands.Command;
 import edu.java.bot.commands.TrackCommand;
 import edu.java.bot.commands.UntrackCommand;
 import edu.java.bot.dto.AddLinkRequest;
+import edu.java.bot.dto.RemoveLinkRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import edu.java.bot.dto.RemoveLinkRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +24,6 @@ public class CommandRecognizer {
     private static final int COMMON_STATE = 0;
     private static final int TRACK_STATE = 1;
     private static final int UNTRACK_STATE = 2;
-
 
     @Autowired
     public CommandRecognizer(List<Command> commands, LinkValidator validator, ScrapperClient client) {
@@ -57,19 +56,17 @@ public class CommandRecognizer {
 
     public SendMessage linkProcessingInDialog(Update update) {
         String link = update.message().text();
-        if(link.equals("cancel")) {
+        if (link.equals("cancel")) {
             dialogState = COMMON_STATE;
             return new SendMessage(update.message().chat().id(), "Link entry has canceled");
-        }
-        else if(dialogState == TRACK_STATE){
+        } else if (dialogState == TRACK_STATE) {
             return processTrackCommand(update);
-        }
-        else {
+        } else {
             return processUntrackCommand(update);
         }
     }
 
-    private SendMessage processTrackCommand(Update update){
+    private SendMessage processTrackCommand(Update update) {
         String link = update.message().text();
         String messageText = validator.validate(link);
         if (validator.isLinkCorrect(link)) {
@@ -79,7 +76,7 @@ public class CommandRecognizer {
         return new SendMessage(update.message().chat().id(), messageText);
     }
 
-    private SendMessage processUntrackCommand(Update update){
+    private SendMessage processUntrackCommand(Update update) {
         String link = update.message().text();
         scrapperClient.removeLink(update.message().chat().id(), new RemoveLinkRequest(link)); // DELETE LINK FROM DB
         dialogState = COMMON_STATE;

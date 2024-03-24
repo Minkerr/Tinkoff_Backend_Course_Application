@@ -61,7 +61,7 @@ public class JdbcLinkRepository {
         String sql = "DELETE FROM chat_links WHERE id_chat = ? AND id_link = ?";
         long chatId = jdbcChatRepository.findById(chatApiId).get().getId();
         var optionalLink = findByUrl(url);
-        if (optionalLink.isEmpty()){
+        if (optionalLink.isEmpty()) {
             return new Link();
         }
         long linkId = optionalLink.get().getId();
