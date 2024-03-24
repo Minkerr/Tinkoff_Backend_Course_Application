@@ -71,7 +71,6 @@ public class CommandTest {
     }
 
     @Test
-    @Disabled
     void recognize_shouldRecognizeCommand() {
         //arrange
         Update mock = getMockUpdate("/start");
@@ -82,7 +81,6 @@ public class CommandTest {
     }
 
     @Test
-    @Disabled
     void process_shouldReturnConfirmedUpdatesAll() {
         //arrange
         Update mock = getMockUpdate("/help");
@@ -99,31 +97,29 @@ public class CommandTest {
         Update mock = getMockUpdate("/start");
         String exp = "You are registered for resource tracking";
         //act
-        var act = recognizer.recognizeCommand(mock).getParameters().get("text");
+        var act = recognizer.handleCommand(mock).getParameters().get("text");
         //assert
         assertThat(act).isEqualTo(exp);
     }
 
     @Test
-    @Disabled
     void recognizeCommand_shouldRecognizeTrackCommand() {
         //arrange
         Update mock = getMockUpdate("/track");
         String exp = "Input link for tracking:";
         //act
-        var act = recognizer.recognizeCommand(mock).getParameters().get("text");
+        var act = recognizer.handleCommand(mock).getParameters().get("text");
         //assert
         assertThat(act).isEqualTo(exp);
     }
 
     @Test
-    @Disabled
     void recognizeCommand_shouldRecognizeUnknownCommand() {
         //arrange
         Update mock = getMockUpdate("/hello");
         String exp = "Unknown command. Use /help to see the available commands";
         //act
-        var act = recognizer.recognizeCommand(mock).getParameters().get("text");
+        var act = recognizer.handleCommand(mock).getParameters().get("text");
         //assert
         assertThat(act).isEqualTo(exp);
     }
@@ -135,19 +131,18 @@ public class CommandTest {
         Update mock = getMockUpdate("https://stackoverflow.com/questions/1");
         String exp = "Link successfully added for tracking!";
         //act
-        var act = recognizer.linkValidationInDialog(mock).getParameters().get("text");
+        var act = recognizer.linkProcessingInDialog(mock).getParameters().get("text");
         //assert
         assertThat(act).isEqualTo(exp);
     }
 
     @Test
-    @Disabled
     void linkValidationInDialog_shouldMatchIncorrectLinks() {
         //arrange
         Update mock = getMockUpdate("https://stackoverflow.com/questions/");
         String exp = "Incorrect input";
         //act
-        var act = recognizer.linkValidationInDialog(mock).getParameters().get("text");
+        var act = recognizer.linkProcessingInDialog(mock).getParameters().get("text");
         //assert
         assertThat(act).isEqualTo(exp);
     }

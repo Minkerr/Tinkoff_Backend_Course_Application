@@ -8,8 +8,9 @@ public class LinkValidator {
     public String validate(String link) {
         if (isLinkCorrect(link)) {
             return "Link successfully added for tracking!";
+        } else {
+            return "Incorrect input (type cancel to cancel the link entry)";
         }
-        return "Incorrect input";
     }
 
     public boolean isLinkCorrect(String link) {

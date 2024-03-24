@@ -17,6 +17,6 @@ public class UserMessageListener implements UserMessageProcessor {
     @Override
     public SendMessage process(Update update) {
         return recognizer.getDialogState()
-            ? recognizer.linkValidationInDialog(update) : recognizer.recognizeCommand(update);
+            ? recognizer.linkProcessingInDialog(update) : recognizer.handleCommand(update);
     }
 }

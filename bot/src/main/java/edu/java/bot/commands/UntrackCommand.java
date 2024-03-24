@@ -27,7 +27,7 @@ public class UntrackCommand implements Command {
 
     @Override
     public SendMessage handle(Update update) {
-        return new SendMessage(update.message().chat().id(), "untrack");
+        return new SendMessage(update.message().chat().id(), "Input link for untracking:");
     }
 }
 

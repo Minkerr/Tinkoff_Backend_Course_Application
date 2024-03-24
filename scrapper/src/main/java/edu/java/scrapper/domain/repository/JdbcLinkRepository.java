@@ -60,9 +60,13 @@ public class JdbcLinkRepository {
     public Link remove(long chatApiId, String url) {
         String sql = "DELETE FROM chat_links WHERE id_chat = ? AND id_link = ?";
         long chatId = jdbcChatRepository.findById(chatApiId).get().getId();
-        long linkId = findByUrl(url).get().getId();
+        var optionalLink = findByUrl(url);
+        if (optionalLink.isEmpty()){
+            return new Link();
+        }
+        long linkId = optionalLink.get().getId();
         jdbcTemplate.update(sql, chatId, linkId);
-        return findByUrl(url).get();
+        return optionalLink.get();
     }
 
     public void update(Link link, OffsetDateTime newLastUpdate) {
