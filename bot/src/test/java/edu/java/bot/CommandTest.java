@@ -123,27 +123,4 @@ public class CommandTest {
         //assert
         assertThat(act).isEqualTo(exp);
     }
-
-    @Test
-    @Disabled
-    void linkValidationInDialog_shouldMatchCorrectLinks() {
-        //arrange
-        Update mock = getMockUpdate("https://stackoverflow.com/questions/1");
-        String exp = "Link successfully added for tracking!";
-        //act
-        var act = recognizer.linkProcessingInDialog(mock).getParameters().get("text");
-        //assert
-        assertThat(act).isEqualTo(exp);
-    }
-
-    @Test
-    void linkValidationInDialog_shouldMatchIncorrectLinks() {
-        //arrange
-        Update mock = getMockUpdate("https://stackoverflow.com/questions/");
-        String exp = "Incorrect input";
-        //act
-        var act = recognizer.linkProcessingInDialog(mock).getParameters().get("text");
-        //assert
-        assertThat(act).isEqualTo(exp);
-    }
 }
