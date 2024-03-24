@@ -1,4 +1,4 @@
-package edu.java.scrapper.domain.repository;
+package edu.java.scrapper.domain.repository.jdbc;
 
 import edu.java.scrapper.domain.model.Chat;
 import edu.java.scrapper.domain.model.Link;

@@ -1,7 +1,7 @@
 package edu.java.scrapper.service.jdbs;
 
 import edu.java.scrapper.domain.model.Chat;
-import edu.java.scrapper.domain.repository.JdbcChatRepository;
+import edu.java.scrapper.domain.repository.jdbc.JdbcChatRepository;
 import edu.java.scrapper.service.ChatService;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package edu.java.scrapper.service.jdbs;
 
 import edu.java.scrapper.domain.model.Chat;
 import edu.java.scrapper.domain.model.Link;
-import edu.java.scrapper.domain.repository.JdbcLinkRepository;
+import edu.java.scrapper.domain.repository.jdbc.JdbcLinkRepository;
 import edu.java.scrapper.service.LinkService;
 import java.time.OffsetDateTime;
 import java.util.List;
