@@ -1,7 +1,7 @@
 package edu.java.bot.client.retryModel;
 
-import org.springframework.http.HttpStatus;
 import java.util.Set;
+import org.springframework.http.HttpStatus;
 
 public class RetryPolicyParameters {
     private CustomRetryPolicy policy;

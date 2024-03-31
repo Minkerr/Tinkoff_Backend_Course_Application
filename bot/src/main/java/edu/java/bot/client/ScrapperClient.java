@@ -9,12 +9,12 @@ import edu.java.bot.dto.ListLinksResponse;
 import edu.java.bot.dto.RemoveLinkRequest;
 import io.github.resilience4j.retry.Retry;
 import jakarta.annotation.PostConstruct;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import java.util.Set;
 
 public class ScrapperClient {
     private final WebClient webClient;
@@ -57,6 +57,7 @@ public class ScrapperClient {
             .bodyToMono(String.class)
             .block();
     }
+
     public String deleteChat(Long id) {
         return webClient
             .delete()

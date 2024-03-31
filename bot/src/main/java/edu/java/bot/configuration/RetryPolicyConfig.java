@@ -1,25 +1,25 @@
 package edu.java.bot.configuration;
 
-import java.time.Duration;
-import java.time.OffsetDateTime;
 import edu.java.bot.client.retryModel.RetryPolicyParameters;
 import io.github.resilience4j.core.IntervalFunction;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryConfig;
+import java.time.Duration;
+import java.time.OffsetDateTime;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 public class RetryPolicyConfig {
-    //@Value(value = "${api.scrapper.interval}")
-    private static int interval = 4;
+    @Value(value = "${api.scrapper.interval}")
+    private static int interval;
+
     private RetryPolicyConfig() {
     }
 
     public static Retry config(RetryPolicyParameters settings) {
         RetryConfig config = switch (settings.getPolicy()) {
-            case CONSTANT    -> constant(settings);
-            case LINEAR      -> linear(settings);
+            case CONSTANT -> constant(settings);
+            case LINEAR -> linear(settings);
             case EXPONENTIAL -> exponential(settings);
         };
 
