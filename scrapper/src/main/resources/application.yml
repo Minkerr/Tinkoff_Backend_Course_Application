@@ -35,3 +35,6 @@ springdoc:
     path: /swagger-ui
   bot:
     base-url: http://localhost:8090
+
+hibernate:
+  allow_update_outside_transaction: true

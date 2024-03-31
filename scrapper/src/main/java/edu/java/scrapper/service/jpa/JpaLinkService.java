@@ -11,8 +11,11 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED)
 public class JpaLinkService implements LinkService {
     private final JpaLinkRepository linkRepository;
     private final JpaChatRepository chatRepository;
@@ -24,12 +27,12 @@ public class JpaLinkService implements LinkService {
     }
 
     @Override
-    public Link add(long tgChatId, String url) {
-        var entity = new LinkEntity();
+    public Link add(long apiId, String url) {
+        LinkEntity entity = new LinkEntity();
         entity.setUrl(url);
         entity.setLastUpdate(OffsetDateTime.now());
-        entity.getChats().add(chatRepository.findChatEntityByApiId(tgChatId));
-        linkRepository.save(entity);
+        entity.getChats().add(chatRepository.findChatEntityByApiId(apiId));
+        linkRepository.saveAndFlush(entity);
         var link = linkRepository.findByUrl(url);
         return new Link(link.getId(), link.getUrl());
     }
@@ -54,7 +57,7 @@ public class JpaLinkService implements LinkService {
 
     @Override
     public void update(Link link, OffsetDateTime newLastUpdate) {
-        linkRepository.updateById(link.getId(), newLastUpdate);
+        linkRepository.updateById(newLastUpdate, link.getId());
     }
 
     @Override

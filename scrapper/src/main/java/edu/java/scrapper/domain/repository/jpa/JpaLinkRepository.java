@@ -18,7 +18,7 @@ public interface JpaLinkRepository extends JpaRepository<LinkEntity, Long> {
     List<LinkEntity> findLinkEntitiesByLastUpdateBefore(OffsetDateTime lastUpdated);
 
     @Query(value = "UPDATE links SET last_update = ? WHERE id = ?", nativeQuery = true)
-    void updateById(long id, OffsetDateTime time);
+    void updateById(OffsetDateTime time, long id);
 
     @Query(value = "SELECT id, api_id FROM chats WHERE id IN (SELECT id_chat FROM chat_links WHERE id_link = ?)",
            nativeQuery = true)

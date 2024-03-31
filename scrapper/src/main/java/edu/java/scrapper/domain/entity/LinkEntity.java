@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +23,17 @@ public class LinkEntity {
     private long id;
 
     @Column(name = "url")
+    @NotNull
     private String url;
 
     @Column(name = "last_update")
+    @NotNull
     private OffsetDateTime lastUpdate;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "chat_links",
-               joinColumns = {@JoinColumn(name = "id_link", referencedColumnName = "id")},
-               inverseJoinColumns = {@JoinColumn(name = "id_chat", referencedColumnName = "id")})
+               joinColumns = {@JoinColumn(name = "id_link")},
+               inverseJoinColumns = {@JoinColumn(name = "id_chat")})
     private List<ChatEntity> chats = new ArrayList<>();
 
     public LinkEntity() {
