@@ -1,8 +1,10 @@
 package edu.java.scrapper.domain.model;
 
+import jakarta.persistence.Id;
 import java.time.OffsetDateTime;
 
 public class Link {
+    @Id
     long id;
     String url;
     OffsetDateTime lastUpdated;

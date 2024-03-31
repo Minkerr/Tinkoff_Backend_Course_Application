@@ -1,7 +1,7 @@
 package edu.java.scrapper.service.jdbs;
 
 import edu.java.scrapper.domain.model.Chat;
-import edu.java.scrapper.domain.repository.JdbcChatRepository;
+import edu.java.scrapper.domain.repository.jdbc.JdbcChatRepository;
 import edu.java.scrapper.service.ChatService;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,10 @@ public class JdbcChatService implements ChatService {
 
     @Override
     public void add(long tgChatId) {
-        chatRepository.add(tgChatId);
+        Optional<Chat> foundChat = chatRepository.findById(tgChatId);
+        if (foundChat.isEmpty()) {
+            chatRepository.add(tgChatId);
+        }
     }
 
     @Override

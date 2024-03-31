@@ -1,8 +1,9 @@
 app:
   scheduler:
     enable: true
-    interval: 10000
-    force-check-delay: 10000
+    interval: 60000
+    force-check-delay: 60000
+  database-access-type: jdbc
 
 spring:
   application:
@@ -34,3 +35,6 @@ springdoc:
     path: /swagger-ui
   bot:
     base-url: http://localhost:8090
+
+hibernate:
+  allow_update_outside_transaction: true

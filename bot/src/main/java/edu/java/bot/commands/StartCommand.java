@@ -15,9 +15,6 @@ public class StartCommand implements Command {
         this.scrapperClient = scrapperClient;
     }
 
-    public StartCommand() {
-    }
-
     @Override
     public String command() {
         return "/start";
@@ -30,7 +27,7 @@ public class StartCommand implements Command {
 
     @Override
     public SendMessage handle(Update update) {
-        //scrapperClient.registerChat(update.message().chat().id());
+        scrapperClient.registerChat(update.message().chat().id());
         return new SendMessage(update.message().chat().id(), "You are registered for resource tracking");
     }
 }

@@ -15,7 +15,7 @@ public class ScrapperClient {
     @Value("api-scrapper-base-url")
     private String scrapperBaseUrl;
     private final String links = "/links";
-    private final String tgChat = "tg-chat/{id}";
+    private final String tgChat = "/tg-chat/{id}";
     private final String tgChatId = "Tg-Chat-Id";
 
     public ScrapperClient(String baseUrl) {

@@ -1,4 +1,4 @@
-package edu.java.scrapper.domain.repository;
+package edu.java.scrapper.domain.repository.jdbc;
 
 import edu.java.scrapper.domain.model.Chat;
 import edu.java.scrapper.domain.model.Link;
@@ -60,9 +60,13 @@ public class JdbcLinkRepository {
     public Link remove(long chatApiId, String url) {
         String sql = "DELETE FROM chat_links WHERE id_chat = ? AND id_link = ?";
         long chatId = jdbcChatRepository.findById(chatApiId).get().getId();
-        long linkId = findByUrl(url).get().getId();
+        var optionalLink = findByUrl(url);
+        if (optionalLink.isEmpty()) {
+            return new Link();
+        }
+        long linkId = optionalLink.get().getId();
         jdbcTemplate.update(sql, chatId, linkId);
-        return findByUrl(url).get();
+        return optionalLink.get();
     }
 
     public void update(Link link, OffsetDateTime newLastUpdate) {
@@ -108,6 +112,26 @@ public class JdbcLinkRepository {
                 rs.getTimestamp("last_update").toInstant().atOffset(ZoneOffset.UTC)
             ),
             timeBias
+        ).stream().toList();
+    }
+
+    public List<Link> findAllLinks(long chatApiId) {
+        String sql = """
+            SELECT * FROM links
+            WHERE id IN
+            (SELECT id_link FROM chat_links
+            WHERE id_chat IN
+            (SELECT id FROM chats
+            WHERE api_id = ?))
+            """;
+        return jdbcTemplate.query(
+            sql,
+            (rs, rowNum) -> new Link(
+                rs.getLong("id"),
+                rs.getString("url"),
+                rs.getTimestamp("last_update").toInstant().atOffset(ZoneOffset.UTC)
+            ),
+            chatApiId
         ).stream().toList();
     }
 }

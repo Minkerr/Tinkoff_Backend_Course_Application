@@ -8,11 +8,13 @@ public class LinkValidator {
     public String validate(String link) {
         if (isLinkCorrect(link)) {
             return "Link successfully added for tracking!";
+        } else {
+            return "Incorrect input (type cancel to cancel the link entry)";
         }
-        return "Incorrect input";
     }
 
     public boolean isLinkCorrect(String link) {
-        return Pattern.matches("^https:\\/\\/stackoverflow\\.com\\/questions\\/\\d+", link);
+        return Pattern.matches("^https:\\/\\/stackoverflow\\.com\\/questions\\/\\d+\\/?", link)
+            || Pattern.matches("https:\\/\\/github\\.com\\/[(a-zA-Z0-9_]+\\/[(a-zA-Z0-9_-]+\\/?", link);
     }
 }
