@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BucketConfig {
-    @Value(value = "${bucket.queryCount}")
+    @Value(value = "${bucket.queryNumber}")
     private int queryNumber;
 
     @Bean
