@@ -1,4 +1,4 @@
-package edu.java.bot.configuration;
+package edu.java.scrapper.configuration;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Bean;
 import java.time.Duration;
 
 public class BucketConfig {
-    @Value(value = "${bucket.queryCount}")
-    private int queryNumber;
+    @Value(value = "${bucket.queryNumber}")
+    private int queryCount;
     @Bean
     public Bucket createNewBucket() {
         Bandwidth limit = Bandwidth
             .builder()
-            .capacity(queryNumber)
-            .refillIntervally(queryNumber, Duration.ofMinutes(1))
+            .capacity(queryCount)
+            .refillIntervally(queryCount, Duration.ofMinutes(1))
             .build();
 
         return Bucket.builder().addLimit(limit).build();

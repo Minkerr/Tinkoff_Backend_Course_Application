@@ -25,10 +25,19 @@ logging:
 api:
   github:
     base-url: https://api.github.com
+    retryPolicy: linear
+    retryNumber: 4
+    statuses: INTERNAL_SERVER_ERROR,BAD_GATEWAY,INSUFFICIENT_STORAGE,SERVICE_UNAVAILABLE,GATEWAY_TIMEOUT
   stackoverflow:
     base-url: https://api.stackexchange.com/
+    retryPolicy: linear
+    retryNumber: 4
+    statuses: INTERNAL_SERVER_ERROR,BAD_GATEWAY,INSUFFICIENT_STORAGE,SERVICE_UNAVAILABLE,GATEWAY_TIMEOUT
   bot:
     base-url: http://localhost:8090
+    retryPolicy: linear
+    retryNumber: 4
+    statuses: INTERNAL_SERVER_ERROR,BAD_GATEWAY,INSUFFICIENT_STORAGE,SERVICE_UNAVAILABLE,GATEWAY_TIMEOUT
 
 springdoc:
   swagger-ui:
@@ -38,3 +47,6 @@ springdoc:
 
 hibernate:
   allow_update_outside_transaction: true
+
+bucket:
+  queryNumber: 10

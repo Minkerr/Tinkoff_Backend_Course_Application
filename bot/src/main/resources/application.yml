@@ -26,4 +26,4 @@ springdoc:
     path: /swagger-ui
 
 bucket:
-  queryCount: 10
+  queryNumber: 10
