@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class BucketConfig {
     @Value(value = "${bucket.queryCount}")
     private int queryNumber;
+
     @Bean
     public Bucket createNewBucket() {
         Bandwidth limit = Bandwidth
