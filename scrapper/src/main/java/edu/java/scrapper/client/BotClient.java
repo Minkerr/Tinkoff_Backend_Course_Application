@@ -6,11 +6,11 @@ import edu.java.scrapper.configuration.RetryPolicyConfig;
 import edu.java.scrapper.dto.LinkUpdateRequest;
 import io.github.resilience4j.retry.Retry;
 import jakarta.annotation.PostConstruct;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import java.util.Set;
 
 public class BotClient {
     @Value("api-bot-base-url")

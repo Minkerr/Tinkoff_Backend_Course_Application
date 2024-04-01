@@ -4,9 +4,9 @@ import edu.java.scrapper.client.retryModel.RetryPolicyParameters;
 import io.github.resilience4j.core.IntervalFunction;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryConfig;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 import java.time.Duration;
 import java.time.OffsetDateTime;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 public class RetryPolicyConfig {
     private static final int INTERVAL = 4;

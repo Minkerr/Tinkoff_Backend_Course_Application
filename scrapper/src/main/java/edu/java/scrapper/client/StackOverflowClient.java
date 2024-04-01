@@ -4,13 +4,12 @@ import edu.java.scrapper.client.retryModel.CustomRetryPolicy;
 import edu.java.scrapper.client.retryModel.RetryPolicyParameters;
 import edu.java.scrapper.configuration.RetryPolicyConfig;
 import edu.java.scrapper.response.QuestionResponse;
-import edu.java.scrapper.response.RepositoryResponse;
 import io.github.resilience4j.retry.Retry;
 import jakarta.annotation.PostConstruct;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.WebClient;
-import java.util.Set;
 
 public class StackOverflowClient {
     @Value("${api.stackoverflow.base-url}")
