@@ -6,12 +6,10 @@ import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryConfig;
 import java.time.Duration;
 import java.time.OffsetDateTime;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 public class RetryPolicyConfig {
-    @Value(value = "${api.scrapper.interval}")
-    private static int interval;
+    private static final int INTERVAL = 4;
 
     private RetryPolicyConfig() {
     }
@@ -29,7 +27,7 @@ public class RetryPolicyConfig {
     private static RetryConfig constant(RetryPolicyParameters settings) {
         return RetryConfig.<WebClientResponseException>custom()
             .maxAttempts(settings.getNumber())
-            .waitDuration(Duration.ofSeconds(interval))
+            .waitDuration(Duration.ofSeconds(INTERVAL))
             .retryOnResult(response -> settings.getStatuses().contains(response.getStatusCode()))
             .build();
     }
@@ -38,8 +36,8 @@ public class RetryPolicyConfig {
         return RetryConfig.<WebClientResponseException>custom()
             .maxAttempts(settings.getNumber())
             .intervalFunction(IntervalFunction.of(
-                Duration.ofSeconds(interval),
-                attempt -> interval + attempt * interval
+                Duration.ofSeconds(INTERVAL),
+                attempt -> INTERVAL + attempt * INTERVAL
             ))
             .retryOnResult(response -> settings.getStatuses().contains(response.getStatusCode()))
             .build();
