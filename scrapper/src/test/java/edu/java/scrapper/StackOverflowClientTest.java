@@ -21,14 +21,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class StackOverflowClientTest {
     private static WireMockServer wireMockServer;
     private static StackOverflowClient stackOverflowClient;
-    private static final String baseUrl = "http://localhost:8090";
+    private static final String baseUrl = "http://localhost:8080";
     private static final String REPOSITORY_PATH = "src" + File.separator + "test" +
         File.separator + "resources" + File.separator + "question.json";
 
     @BeforeAll
     public static void setUp() {
         stackOverflowClient = new StackOverflowClient(baseUrl);
-        wireMockServer = new WireMockServer(8090);
+        wireMockServer = new WireMockServer(8080);
         wireMockServer.start();
     }
 
